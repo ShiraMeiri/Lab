@@ -425,3 +425,33 @@ vector<int> Solution::twoSum(vector<int> &nums, int target) {
     }
     return {};
 }
+
+int Solution::myAtoi(string s) {
+    int i = 0;
+    while (i < s.size() && s[i] == ' ') {
+        i++;
+    }
+    if (i == s.size()) {
+        return 0;
+    }
+    bool isNegative = false;
+    if (s[i] == '-') {
+        isNegative = true;
+        i++;
+    } else if (s[i] == '+') {
+        i++;
+    }
+    if (i == s.size() || !isdigit(s[i])) {
+        return 0;
+    }
+    long long res = 0;
+    while (i < s.size() && isdigit(s[i])) {
+        res = res * 10 + s[i] - '0';
+        if (res > INT_MAX) {
+            return isNegative ? INT_MIN : INT_MAX;
+        }
+        i++;
+    }
+    return isNegative ? -res : res;
+
+}
